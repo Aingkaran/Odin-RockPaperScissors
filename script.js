@@ -58,3 +58,27 @@ function playRound(playerSelection, computerSelection){
         }
 
 }
+
+
+function game(){
+    let wins= 0
+    
+    for (let i=0; i<5; i++){
+        let userChoice = prompt("Choose Rock, Paper, OR Scissors")
+
+        let result = playRound(userChoice, computerPlay())
+        console.log(result)
+
+        if (result==="You Win!"){
+            wins++
+        } 
+
+
+    }
+    if (wins>2){
+        console.log("YOU WON THE GAME!!!")
+    }
+    else{
+        console.log("YOU ARE A LOSERRRR!!")
+    }
+}
