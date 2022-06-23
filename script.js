@@ -72,12 +72,12 @@ function game(){
         if (result==="You Win!"){
             wins++
         } 
-
-
     }
+
     if (wins>2){
         console.log("YOU WON THE GAME!!!")
     }
+
     else{
         console.log("YOU ARE A LOSERRRR!!")
     }
