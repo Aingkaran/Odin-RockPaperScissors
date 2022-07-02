@@ -82,3 +82,9 @@ function game(){
         console.log("YOU ARE A LOSERRRR!!")
     }
 }
+
+
+const btn = document.querySelector('.buttons');
+btn.addEventListener('click', (e)=>{
+    console.log(playRound(e.target.value, computerPlay()));
+    });
