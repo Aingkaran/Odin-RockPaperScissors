@@ -1,3 +1,27 @@
+let playerScore=0;
+let computerScore=0;
+const btn = document.querySelectorAll('button');
+
+
+
+
+
+function disableButtons() {
+    btn.forEach(elem => {
+        elem.disabled = true
+    })
+}
+
+
+const container = document.querySelector('#container');
+const resultsText = document.createElement('div');
+const playerscoreText = document.createElement('div');
+const computerscoreText = document.createElement('div');
+
+const refreshText= document.createElement('div');
+refreshText.setAttribute('id', 'refresh');                              
+
+
 function computerPlay(){
     let randomnumb = Math.floor(Math.random() * 9);
    
@@ -14,77 +38,90 @@ function computerPlay(){
 }
 
 
-function playRound(playerSelection, computerSelection){
-    userChoice= playerSelection.toLowerCase()
-    if (userChoice==="rock"){
-        if (computerSelection==="rock"){
-            return "It's a Tie"}
-        else if (computerSelection==="paper"){
-            return "You lose!"}
-        
-        else {
-            return "You Win!"
-        }
-        
-    }
+function playRound(playerSelection){
+    userChoice= playerSelection.toLowerCase();
+    computerSelection = computerPlay();
 
-        else if (userChoice==="paper"){
-            if (computerSelection==="rock"){
-                return "You Win!"}
-            else if (computerSelection==="paper"){
-                return "It's a Tie"}
-            
-            else {
-                return "You lose!"
-            }
-            
-        }
+ 
+    let results = ""
+    let player= ""
+    let computer=""
+    let refresh ="" 
 
-        else if (userChoice==="scissors"){
-            if (computerSelection==="rock"){
-                return "You lose!"}
-            else if (computerSelection==="paper"){
-                return "You Win!"}
-            
-            else {
-                return "It's a Tie"
-            }
-            
-        }
-
-
-        else {
-            return "Wrong Input Choose Either: Rock , Paper OR Scissors!!"
-        }
-
-}
-
-
-function game(){
-    let wins= 0
     
-    for (let i=0; i<5; i++){
-        let userChoice = prompt("Choose Rock, Paper, OR Scissors")
+    if ((userChoice == 'rock' && computerSelection == 'scissors') ||
+        (userChoice == 'scissors' && computerSelection == 'paper') ||
+        (userChoice == 'paper' && computerSelection == 'rock')){
 
-        let result = playRound(userChoice, computerPlay())
-        console.log(result)
+            playerScore+=1;
+        
+            results= "You Win!!! "
+            player= "Your Score Is: " + playerScore
+            computer = " The Enemy Score is: " + computerScore
 
-        if (result==="You Win!"){
-            wins++
-        } 
+        if (playerScore==3){
+            results = "GAME OVERRR YOU ARE THE WINNER";
+            refresh= "Refresh Page To Restart"
+            disableButtons()
+            }
+           ;
+
+        }
+
+
+
+    else if (userChoice===computerSelection){
+
+        results = "It's a Tie , try again! " 
+        player= "Your Score Is: " + playerScore
+        computer = " The Enemy Score is: " + computerScore
+        
     }
 
-    if (wins>2){
-        console.log("YOU WON THE GAME!!!")
+    else {
+        computerScore+= 1;
+        results = "You LOST!! " 
+        player= "Your Score Is: " + playerScore
+        computer = " The Enemy Score is: " + computerScore
+        if (computerScore==3){
+            results = "GAME OVERRR COMPUTER WINS";
+            disableButtons()
+            refresh= "Refresh Page To Restart"
+            }
+
     }
 
-    else{
-        console.log("YOU ARE A LOSERRRR!!")
-    }
+    resultsText.textContent= results;
+    playerscoreText.textContent= player;
+    computerscoreText.textContent= computer;
+    refreshText.textContent= refresh;
+
+
+    container.appendChild(resultsText)
+    container.appendChild(playerscoreText)
+    container.appendChild(computerscoreText)
+    container.appendChild(refreshText)
+
+
+        
+    
+  
+
 }
 
 
-const btn = document.querySelector('.buttons');
-btn.addEventListener('click', (e)=>{
-    console.log(playRound(e.target.value, computerPlay()));
-    });
+btn.forEach((button)=>{
+    button.addEventListener('click', (e)=>{
+    
+        playRound(e.target.value)
+        
+    
+        });
+        
+
+});
+
+
+
+
+
